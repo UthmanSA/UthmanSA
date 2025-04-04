@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Learning App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        input { padding: 10px; width: 80%; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc; }
+        .subjects { display: flex; flex-wrap: wrap; justify-content: center; }
+        .card { background: white; border: 1px solid #ddd; padding: 15px; margin: 10px; width: 250px; border-radius: 10px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); transition: transform 0.3s; }
+        .card:hover { transform: scale(1.05); }
+        .card a { display: block; margin-top: 10px; padding: 10px; background: blue; color: white; text-decoration: none; border-radius: 5px; }
+        .category { margin: 20px 0; }
+        .category h2 { cursor: pointer; color: #007BFF; }
+        .category h2:hover { text-decoration: underline; }
+        .language-selector { margin-bottom: 20px; }
+        .language-selector select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        @media (max-width: 768px) {
+            .card { width: 90%; }
+            input { width: 95%; }
+        }
+    </style>
+    <script>
+        function searchSubjects() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let cards = document.getElementsByClassName("card");
+            for (let card of cards) {
+                let subject = card.getElementsByTagName("h3")[0].innerText.toLowerCase();
+                let description = card.getElementsByTagName("p")[0].innerText.toLowerCase();
+                if (subject.includes(input) || description.includes(input)) {
+                    card.style.display = "block";
+                    card.getElementsByTagName("h3")[0].innerHTML = highlightText(subject, input);
+                    card.getElementsByTagName("p")[0].innerHTML = highlightText(description, input);
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+
+        function highlightText(text, query) {
+            let regex = new RegExp(`(${query})`, "gi");
+            return text.replace(regex, "<span style='background-color: yellow;'>$1</span>");
+        }
+
+        function toggleCategory(categoryId) {
+            let category = document.getElementById(categoryId);
+            category.style.display = category.style.display === "none" ? "flex" : "none";
+        }
+
+        function changeLanguage() {
+            let language = document.getElementById("language").value;
+            alert("Language changed to: " + language); // Placeholder for actual language change logic
+        }
+    </script>
+</head>
+<body>
+    <h1>Global Learning App</h1>
+    <div class="language-selector">
+        <label for="language">Choose Language:</label>
+        <select id="language" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="es">Spanish</option>
+            <option value="zh">Chinese</option>
+            <option value="ar">Arabic</option>
+        </select>
+    </div>
+    <input type="text" id="search" onkeyup="searchSubjects()" placeholder="Search subjects...">
+
+    <div class="category">
+        <h2 onclick="toggleCategory('science')">Science Subjects</h2>
+        <div id="science" class="subjects">
+            <div class="card">
+                <h3>Mathematics</h3>
+                <p>Learn Algebra, Geometry, and more</p>
+                <a href="https://myschool.ng/classroom/mathematics" target="_blank">View Past Questions</a>
+            </div>
+            <div class="card">
+                <h3>English Language</h3>
+                <p>Improve Grammar, Vocabulary, and Writing skills</p>
+                <a href="https://myschool.ng/classroom/english-language" target="_blank">View Past Questions</a>
+            </div>
+            <div class="card">
+                <h3>Physics</h3>
+                <p>Explore Mechanics, Electricity, and more</p>
+                <a href="https://myschool.ng/classroom/physics" target="_blank">View Past Questions</a>
+            </div>
+            <div class="card">
+                <h3>Chemistry</h3>
+                <p>Understand Organic, Inorganic, and Physical Chemistry</p>
+                <a href="https://myschool.ng/classroom/chemistry" target="_blank">View Past Questions</a>
+            </div>
+            <div class="card">
+                <h3>Biology</h3>
+                <p>Study Genetics, Ecology, and Anatomy</p>
+                <a href="https://myschool.ng/classroom/biology" target="_blank">View Past Questions</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2 onclick="toggleCategory('commercial')">Commercial Subjects</h2>
+        <div id="commercial" class="subjects" style="display: none;">
+            <div class="card">
+                <h3>Economics</h3>
+                <p>Understand economic principles and theories</p>
+                <a href="https://myschool.ng/classroom/economics" target="_blank">View Past Questions</a>
+            </div>
+            <div class="card">
+                <h3>Accounting</h3>
+                <p>Learn financial records and transactions</p>
+                <a href="https://myschool.ng/classroom/accounting" target="_blank">View Past Questions</a>
+            </div>
+            <div class="card">
+                <h3>Commerce</h3>
+                <p>Study trade and business activities</p>
+                <a href="https://myschool.ng/classroom/commerce" target="_blank">View Past Questions</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2 onclick="toggleCategory('arts')">Art Subjects</h2>
+        <div id="arts" class="subjects" style="display: none;">
+            <div class="card">
+                <h3>Government</h3>
+                <p>Learn political structures and governance</p>
+                <a href="https://myschool.ng/classroom/government" target="_blank">View Past Questions</a>
+            </div>
+            <div class="card">
+                <h3>Literature in English</h3>
+                <p>Explore poetry, drama, and prose</p>
+                <a href="https://myschool.ng/classroom/literature-in-english" target="_blank">View Past Questions</a>
+            </div>
+            <div class="card">
+                <h3>CRS/IRS</h3>
+                <p>Study Christian or Islamic Religious Knowledge</p>
+                <a href="https://myschool.ng/classroom/crk" target="_blank">View Past Questions</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
